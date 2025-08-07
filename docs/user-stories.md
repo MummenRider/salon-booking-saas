@@ -82,4 +82,4 @@ This document describes the key use cases for the SaaS Booking Platform MVP, hig
 
 ---
 
-This document will evolve as the product matures and more use cases arise.
+This is a living document where this could change depending on the project
