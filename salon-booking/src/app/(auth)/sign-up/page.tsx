@@ -1,8 +1,11 @@
+"use client"
+import ContinueWithGoogle from "@/components/auth/continueWithGoogle"
 import { Button } from "@/components/ui/button"
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import Divider from "@/components/ui/divider"
 import { Input } from "@/components/ui/input"
-import { Label } from "@radix-ui/react-label"
-import { FaGoogle } from "react-icons/fa"
+import { Label } from "@/components/ui/label"
+
 
 const SignUp = () => {
     return <section>
@@ -12,8 +15,8 @@ const SignUp = () => {
                 <CardDescription>Enter your email to create an account and start organizing bookings effortlessly.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-                <SignUpWithGoogle/>
-                <Divider />
+                <ContinueWithGoogle onClick={() => console.log("clicked")} />
+                <Divider label="or with" />
                 <SignUpWithEmailAndPassword />
             </CardContent>
             <CardFooter>
@@ -25,26 +28,16 @@ const SignUp = () => {
 
 export default SignUp
 
-const SignUpWithGoogle = () =>
-     <Button variant="outline" className="w-fit mx-auto">
-        <FaGoogle className="h-5 w-5"/> Sign up with Google
-    </Button>
-const Divider = () => 
-    <div className="relative">
-        <div className="absolute inset-0 flex items-center"><span className="w-full border-t"/></div>
-        <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-card text-muted-foreground px-2">or with</span>
-        </div>
-    </div>
+
 const SignUpWithEmailAndPassword = () =>
     <>
         <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input type="email" placeholder="smith@example.com" required/>
+            <Label htmlFor="email" className="text-sm">Email</Label>
+            <Input type="email" placeholder="smith@example.com" required />
         </div>
         <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input type="password"required/>
+            <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+            <Input type="password" required />
         </div>
     </>
-    
+
