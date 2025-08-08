@@ -28,7 +28,6 @@ const SignUp = () => {
 
 export default SignUp
 
-
 const SignUpWithEmailAndPassword = () =>
     <>
         <div className="grid gap-2">
