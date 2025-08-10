@@ -15,11 +15,7 @@ import React, { FC } from "react";
 import { useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 
-export enum AuthType {
-  signIn = "signIn",
-  signUp = "signUp",
-}
-
+export type AuthType = "signUp" | "signIn";
 interface AuthCardProps {
   description: string;
   authType: AuthType;
@@ -34,9 +30,7 @@ const AuthCard: FC<AuthCardProps> = ({ authType, description, children }) => {
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">
-            {authType === AuthType.signIn
-              ? "Welcome back"
-              : "Create an account"}
+            {authType === "signIn" ? "Welcome back" : "Create an account"}
           </CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
@@ -60,7 +54,3 @@ const AuthCard: FC<AuthCardProps> = ({ authType, description, children }) => {
 };
 
 export default AuthCard;
-
-// const SignUpWithEmailAndPassword = () => (
-
-// );

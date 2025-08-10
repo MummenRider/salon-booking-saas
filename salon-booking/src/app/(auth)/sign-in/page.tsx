@@ -1,13 +1,13 @@
 import AuthCard, { AuthType } from "@/components/auth/authCard";
 import AuthForm from "@/components/auth/authForm";
+
 const SignInPage = () => {
   return (
     <AuthCard
-      authType={AuthType.signIn}
-      description="Enter your email to create an account and 
-                   start organizing bookings effortlessly."
+      authType="signIn"
+      description="Enter your email to sign in and manage your bookings."
     >
-      <AuthForm authType={AuthType.signIn} />
+      <AuthForm authType="signIn" />
     </AuthCard>
   );
 };

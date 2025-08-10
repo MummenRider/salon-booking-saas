@@ -4,11 +4,11 @@ import AuthForm from "@/components/auth/authForm";
 const SignUp = () => {
   return (
     <AuthCard
-      authType={AuthType.signUp}
+      authType="signUp"
       description="Enter your email to create an account and 
                    start organizing bookings effortlessly."
     >
-      <AuthForm authType={AuthType.signUp} />
+      <AuthForm authType="signUp" />
     </AuthCard>
   );
 };
