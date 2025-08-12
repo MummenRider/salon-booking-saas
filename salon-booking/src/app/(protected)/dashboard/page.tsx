@@ -1,12 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
-
-import SignOutButton from "@/components/auth/signOutButton";
+import SignOutButton from "@/components/auth/buttons/signout-button";
 import { auth } from "@/auth";
 
 const Dashboard = async () => {
-  const session = await auth(); // Secure server-side check
+  const session = await auth();
 
   return (
     <>

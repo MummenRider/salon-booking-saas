@@ -51,12 +51,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
-      if (session.user && token.sub) {
-        session.user.id = token.sub;
-        session.user.name = token.name;
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+        token.name = user.name;
       }
-      return session;
+      return token;
+    },
+    async redirect({ baseUrl, url }) {
+      console.log("this is url", url);
+
+      return `${baseUrl}/dashboard`;
     },
   },
 });
