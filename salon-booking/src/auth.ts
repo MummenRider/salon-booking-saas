@@ -38,6 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: user.id,
             email: user.email,
             name: user.name,
+            onboardingComplete: user.onboardingComplete,
           };
         } catch (error) {
           console.error("Authorization error:", error);
@@ -55,11 +56,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.email = user.email;
         token.name = user.name;
+        token.onboardingComplete = user.onboardingComplete;
       }
       return token;
     },
+    async session({ session, user, token }) {
+      session.user.onboardingComplete = token.onboardingComplete;
+      return session;
+    },
     async redirect({ baseUrl, url }) {
-      console.log("this is url", url);
+      // console.log("this is url", url);
 
       return `${baseUrl}/dashboard`;
     },

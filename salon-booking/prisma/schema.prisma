@@ -15,8 +15,10 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
+  onboardingComplete Boolean @default(false)
   accounts      Account[]
   sessions      Session[]
+  salonServices Service[]
   // Optional for WebAuthn support
   // Authenticator Authenticator[]
  
@@ -25,7 +27,24 @@ model User {
 
   Authenticator Authenticator[]
 }
- 
+model Service {
+  id                String    @id @default(cuid())
+  userId            String
+  serviceName       String
+  serviceTypeId     Int
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id])
+  serviceType       ServiceType @relation(fields: [serviceTypeId], references: [id])
+}
+model ServiceType {
+  id               Int        @id @default(autoincrement())
+  name             String     @unique
+
+  Service          Service[]
+}
 model Account {
   userId            String
   type              String
