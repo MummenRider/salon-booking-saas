@@ -1,5 +1,11 @@
-import SignOutButton from "@/components/auth/buttons/signout-button";
-import NavbarMobile from "@/components/navbar-mobile/page";
+import AppBreadCrumbs from "@/components/app-breadcrumbs";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import React, { FC } from "react";
 
 interface ProtectedLayoutProps {
@@ -7,15 +13,24 @@ interface ProtectedLayoutProps {
 }
 const ProtectedLayout: FC<ProtectedLayoutProps> = ({ children }) => {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-      <div className="px-4 py-2 border-b flex justify-between items-center">
-        <p className="font-medium">Dashboard</p>
-        <SignOutButton />
-      </div>
-
-      <section className="p-4">{children}</section>
-      <NavbarMobile />
-    </div>
+    <SidebarProvider className="">
+      <AppSidebar />
+      <SidebarInset className="m-5">
+        <header className="flex h-16 shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <AppBreadCrumbs />
+          </div>
+        </header>
+        <main className="flex flex-1 flex-col gap-4 p-4 pt-0 b">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

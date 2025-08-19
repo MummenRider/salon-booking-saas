@@ -6,7 +6,7 @@ const Dashboard = async () => {
   const session = await auth();
 
   return (
-    <div className="">
+    <div>
       <div className="text-3xl font-bold">
         Welcome back, {session?.user?.name}!
       </div>
