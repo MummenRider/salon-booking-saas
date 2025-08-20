@@ -15,9 +15,9 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = ({ children }) => {
   return (
     <SidebarProvider className="">
       <AppSidebar />
-      <SidebarInset className="m-5">
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex items-center gap-2 px-4">
+      <SidebarInset className="">
+        <header className="flex h-16 shrink-0 items-center gap-2 p-4">
+          <div className="flex items-center gap-2 ">
             <SidebarTrigger className="-ml-1" />
             <Separator
               orientation="vertical"
@@ -26,9 +26,7 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = ({ children }) => {
             <AppBreadCrumbs />
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 pt-0 b">
-          {children}
-        </main>
+        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

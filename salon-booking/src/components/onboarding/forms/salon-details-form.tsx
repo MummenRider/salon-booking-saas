@@ -90,14 +90,14 @@ const SalonDetailsForm = () => {
           />
           <FormError errorMessage={error} />
         </div>
-        <Button
+        {/* <Button
           variant="default"
           type="submit"
           className="w-full"
           disabled={loading}
         >
           {loading ? "Loading..." : "Next"}
-        </Button>
+        </Button> */}
       </form>
     </Form>
   );

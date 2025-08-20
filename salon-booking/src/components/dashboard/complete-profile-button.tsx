@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 const CompleteProfile = () => {
   return (
     <Button variant="default">
-      <Link href="/onboarding/salon-details">Complete Profile</Link>
+      <Link href="/dashboard/onboarding">Complete Profile</Link>
     </Button>
   );
 };
