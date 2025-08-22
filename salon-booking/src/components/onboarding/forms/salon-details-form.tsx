@@ -10,7 +10,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SalonDetailsSchema } from "@/schemas";
+import { SalonDetails, SalonDetailsSchema } from "@/schemas";
+import { useOnboardingForm } from "@/stores/onboarding-form-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,20 +20,22 @@ import * as z from "zod";
 const SalonDetailsForm = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  const { nextStep, salonDetails } = useOnboardingForm();
   const form = useForm<z.infer<typeof SalonDetailsSchema>>({
     resolver: zodResolver(SalonDetailsSchema),
-    defaultValues: {
-      salonName: "",
-      address: "",
-      contactNumber: "",
-    },
+    defaultValues: salonDetails,
   });
 
-  const onSubmitSalonDetails = async (
-    data: z.infer<typeof SalonDetailsSchema>
-  ) => {
+  const onSubmitSalonDetails = async (data: SalonDetails) => {
     setLoading(true);
+    try {
+      nextStep(data); // ✅ persists values + goes to next step
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <Form {...form}>
@@ -90,14 +93,11 @@ const SalonDetailsForm = () => {
           />
           <FormError errorMessage={error} />
         </div>
-        {/* <Button
-          variant="default"
-          type="submit"
-          className="w-full"
-          disabled={loading}
-        >
-          {loading ? "Loading..." : "Next"}
-        </Button> */}
+        <div className="mt-20">
+          <Button type="submit" className="w-full mt-6" disabled={loading}>
+            {loading ? "Loading..." : "Next"}
+          </Button>
+        </div>
       </form>
     </Form>
   );
