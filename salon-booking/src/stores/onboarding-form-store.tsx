@@ -1,23 +1,18 @@
+import { SalonDetailsType } from "@/schemas";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface SalonDetails {
-  salonName: string;
-  address: string;
-  contactNumber: string;
-}
-
 interface OnboardingFormState {
   currentStep: number;
-  salonDetails: SalonDetails;
+  salonDetails: SalonDetailsType;
 }
 
 interface OnboardingFormActions {
-  nextStep: (updates: Partial<SalonDetails>) => void;
+  nextStep: (updates: Partial<SalonDetailsType>) => void;
   previousStep: () => void;
 }
 
-const initialSalonDetails: SalonDetails = {
+const initialSalonDetails: SalonDetailsType = {
   salonName: "",
   address: "",
   contactNumber: "",
@@ -38,6 +33,6 @@ export const useOnboardingForm = create<
       previousStep: () =>
         set((state) => ({ currentStep: state.currentStep - 1 })),
     }),
-    { name: "onboarding-storage" } // persisted in localStorage
+    { name: "onboarding-storage" }
   )
 );

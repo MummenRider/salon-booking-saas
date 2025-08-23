@@ -26,7 +26,7 @@ export const SalonDetailsSchema = z.object({
     .max(15, { error: "Phone number must be less than 15 digits" })
     .regex(/^[0-9+\-() ]+$/, { error: "Please enter a valid phone number" }),
 });
-export type SalonDetails = z.infer<typeof SalonDetailsSchema>;
+export type SalonDetailsType = z.infer<typeof SalonDetailsSchema>;
 
 export const SalonServiceSchema = z.object({
   serviceName: z
@@ -41,4 +41,4 @@ export const SalonServiceSchema = z.object({
   price: z.number().min(0, { error: "Price must be at least 0" }),
 });
 
-export type SalonService = z.infer<typeof SalonServiceSchema>;
+export type SalonServiceType = z.infer<typeof SalonServiceSchema>;
