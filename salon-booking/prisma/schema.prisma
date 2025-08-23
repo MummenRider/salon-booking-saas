@@ -18,33 +18,44 @@ model User {
   onboardingComplete Boolean @default(false)
   accounts      Account[]
   sessions      Session[]
-  salonServices Service[]
-  // Optional for WebAuthn support
-  // Authenticator Authenticator[]
+
+  //Salon Management
+  salon         Salon[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   Authenticator Authenticator[]
 }
+
+model Salon{
+  id            String        @id @default(cuid())
+  ownerId       String
+  name          String
+  address       String?
+  contactNumber String?
+  salonServices Service[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  //Relationships
+  owner         User          @relation(fields: [ownerId], references: [id])
+}
+
 model Service {
-  id                String    @id @default(cuid())
-  userId            String
-  serviceName       String
-  serviceTypeId     Int
+  id           String    @id @default(cuid())
+  salonId      String
+  name         String
+  description  String?
+  duration     Int
+  price        Decimal
   
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 
-  user              User      @relation(fields: [userId], references: [id])
-  serviceType       ServiceType @relation(fields: [serviceTypeId], references: [id])
+  salon       Salon         @relation(fields: [salonId], references: [id])
 }
-model ServiceType {
-  id               Int        @id @default(autoincrement())
-  name             String     @unique
 
-  Service          Service[]
-}
 model Account {
   userId            String
   type              String
