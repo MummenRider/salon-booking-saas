@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 const SalonDetailsForm = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const { nextStep, salonDetails } = useOnboardingForm();
+  const { addSalonDetailsAndNext, salonDetails } = useOnboardingForm();
 
   const form = useForm<SalonDetailsType>({
     resolver: zodResolver(SalonDetailsSchema),
@@ -29,7 +29,7 @@ const SalonDetailsForm = () => {
   const onSubmitSalonDetails = async (data: SalonDetailsType) => {
     setLoading(true);
     try {
-      nextStep(data);
+      addSalonDetailsAndNext(data);
     } catch (err) {
       console.error(err);
       setError("Something went wrong");

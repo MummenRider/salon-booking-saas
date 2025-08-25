@@ -5,6 +5,7 @@ import SalonDetailsForm from "./salon-details-form";
 import { Progress } from "@/components/ui/progress";
 import Typography from "@/components/ui/typography";
 import { ArrowLeft, MoveLeft } from "lucide-react";
+import SalonServiceForm from "./salon-service-form";
 
 const MAX_STEP = 3;
 const OnboardingForm = () => {
@@ -65,6 +66,8 @@ const Services = () => {
         Add the services your salon offers, including name, description,
         duration, and price.
       </Typography>
+
+      <SalonServiceForm />
     </div>
   );
 };

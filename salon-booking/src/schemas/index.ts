@@ -32,13 +32,9 @@ export const SalonServiceSchema = z.object({
   serviceName: z
     .string()
     .min(4, { error: "Service name must be at least 4 characters" }),
-  description: z
-    .string()
-    .min(4, { error: "Description must be at least 4 characters" }),
-  duration: z
-    .number()
-    .min(10, { error: "Service duration must be at least 10 minutes" }),
-  price: z.number().min(0, { error: "Price must be at least 0" }),
+  description: z.string().optional(),
+  duration: z.number().optional(),
+  price: z.number().optional(),
 });
 
 export type SalonServiceType = z.infer<typeof SalonServiceSchema>;

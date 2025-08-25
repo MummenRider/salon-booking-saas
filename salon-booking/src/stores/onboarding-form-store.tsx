@@ -1,15 +1,24 @@
-import { SalonDetailsType } from "@/schemas";
+import {
+  SalonDetailsType,
+  SalonServicesType,
+  SalonServiceType,
+} from "@/schemas";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface OnboardingFormState {
   currentStep: number;
   salonDetails: SalonDetailsType;
+  services: Partial<SalonServicesType["services"]>;
 }
 
 interface OnboardingFormActions {
-  nextStep: (updates: Partial<SalonDetailsType>) => void;
+  addSalonDetailsAndNext: (updates: Partial<SalonDetailsType>) => void;
   previousStep: () => void;
+  addServicesAndNext: (
+    services: Partial<SalonServicesType["services"]>
+  ) => void;
+  removeService: (serviceIndex: number) => void;
 }
 
 const initialSalonDetails: SalonDetailsType = {
@@ -17,7 +26,12 @@ const initialSalonDetails: SalonDetailsType = {
   address: "",
   contactNumber: "",
 };
-
+export const initialSalonService: SalonServiceType = {
+  serviceName: "",
+  description: "",
+  duration: 0,
+  price: 0,
+};
 export const useOnboardingForm = create<
   OnboardingFormState & OnboardingFormActions
 >()(
@@ -25,13 +39,23 @@ export const useOnboardingForm = create<
     (set) => ({
       currentStep: 1,
       salonDetails: initialSalonDetails,
-      nextStep: (updates) =>
+      services: [],
+      addSalonDetailsAndNext: (updates) =>
         set((state) => ({
           salonDetails: { ...state.salonDetails, ...updates },
           currentStep: state.currentStep + 1,
         })),
       previousStep: () =>
         set((state) => ({ currentStep: state.currentStep - 1 })),
+      addServicesAndNext: (services) =>
+        set((state) => ({
+          services: [...state.services, ...services],
+          currentStep: state.currentStep + 1,
+        })),
+      removeService: (serviceIndex) =>
+        set((state) => ({
+          services: state.services.filter((_, index) => serviceIndex != index),
+        })),
     }),
     { name: "onboarding-storage" }
   )
