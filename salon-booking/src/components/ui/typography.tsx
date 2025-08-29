@@ -17,7 +17,7 @@ const Typography = ({ as = "p", children, className }: TypographyProps) => {
     h3: "text-2xl font-semibold leading-snug",
     p: "text-base leading-7",
     span: "text-base",
-    small: "text-sm leading-5",
+    small: "text-sm leading-4",
   };
 
   return <Tag className={cn(styles[as], className)}>{children}</Tag>;

@@ -9,16 +9,14 @@ import { persist } from "zustand/middleware";
 interface OnboardingFormState {
   currentStep: number;
   salonDetails: SalonDetailsType;
-  services: Partial<SalonServicesType["services"]>;
+  services: SalonServiceType[];
 }
 
 interface OnboardingFormActions {
   addSalonDetailsAndNext: (updates: Partial<SalonDetailsType>) => void;
   previousStep: () => void;
-  addServicesAndNext: (
-    services: Partial<SalonServicesType["services"]>
-  ) => void;
-  removeService: (serviceIndex: number) => void;
+  addServicesAndNext: (services: SalonServiceType[]) => void;
+  setServices: (services: SalonServiceType[]) => void;
 }
 
 const initialSalonDetails: SalonDetailsType = {
@@ -49,12 +47,12 @@ export const useOnboardingForm = create<
         set((state) => ({ currentStep: state.currentStep - 1 })),
       addServicesAndNext: (services) =>
         set((state) => ({
-          services: [...state.services, ...services],
+          services: [...services],
           currentStep: state.currentStep + 1,
         })),
-      removeService: (serviceIndex) =>
+      setServices: (services) =>
         set((state) => ({
-          services: state.services.filter((_, index) => serviceIndex != index),
+          services: [...services],
         })),
     }),
     { name: "onboarding-storage" }

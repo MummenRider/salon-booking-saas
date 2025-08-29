@@ -46,3 +46,10 @@ export const SalonServicesSchema = z.object({
 });
 
 export type SalonServicesType = z.infer<typeof SalonServicesSchema>;
+
+export const CompleteSalonSchema = z.object({
+  salonDetails: SalonDetailsSchema,
+  services: SalonServicesSchema,
+});
+
+export type CompleteSalonType = z.infer<typeof CompleteSalonSchema>;

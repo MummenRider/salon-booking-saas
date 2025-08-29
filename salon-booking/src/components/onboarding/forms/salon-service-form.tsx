@@ -19,6 +19,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 
 const SalonServiceForm = () => {
   const addServices = useOnboardingForm((state) => state.addServicesAndNext);
+  const setServices = useOnboardingForm((state) => state.setServices);
   const services = useOnboardingForm((state) => state.services);
   console.log(services);
   console.log("initialSalonService", initialSalonService);
@@ -139,7 +140,12 @@ const SalonServiceForm = () => {
             )}
           </div>
         ))}
-        <Button variant="link" onClick={() => append(initialSalonService)}>
+        <Button
+          variant="link"
+          onClick={() => {
+            append(initialSalonService);
+          }}
+        >
           Add Service
         </Button>
         <div className="mt-20">

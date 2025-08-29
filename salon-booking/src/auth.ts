@@ -54,14 +54,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
         token.email = user.email;
         token.name = user.name;
         token.onboardingComplete = user.onboardingComplete;
       }
+
       return token;
     },
-    async session({ session, user, token }) {
+    async session({ session, token }) {
       session.user.onboardingComplete = token.onboardingComplete;
+      session.user.id = token.id as string;
+
       return session;
     },
     async redirect({ baseUrl, url }) {

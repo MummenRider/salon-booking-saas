@@ -1,11 +1,10 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { useOnboardingForm } from "@/stores/onboarding-form-store";
-import SalonDetailsForm from "./salon-details-form";
 import { Progress } from "@/components/ui/progress";
-import Typography from "@/components/ui/typography";
-import { ArrowLeft, MoveLeft } from "lucide-react";
-import SalonServiceForm from "./salon-service-form";
+import { MoveLeft } from "lucide-react";
+import SalonDetailsStep from "../steps/salon-details-step";
+import SalonServicesStep from "../steps/salon-service-step";
+import SalonCompleteStep from "../steps/salon-complete-step";
 
 const MAX_STEP = 3;
 const OnboardingForm = () => {
@@ -31,43 +30,12 @@ const OnboardingForm = () => {
         <Progress value={progress} />
       </div>
       <div>
-        {currentStep === 1 && <SalonDetails />}
-        {currentStep === 2 && <Services />}
+        {currentStep === 1 && <SalonDetailsStep />}
+        {currentStep === 2 && <SalonServicesStep />}
+        {currentStep === 3 && <SalonCompleteStep />}
       </div>
     </div>
   );
 };
 
 export default OnboardingForm;
-
-const SalonDetails = () => {
-  return (
-    <div className="flex flex-col">
-      <Typography as="h3" className="text-base place-self-start">
-        Salon Details
-      </Typography>
-      <Typography as="p" className="text-muted-foreground pb-6 text-sm">
-        List the services offered by your salon. This will help clients
-        understand your offerings.
-      </Typography>
-
-      <SalonDetailsForm />
-    </div>
-  );
-};
-
-const Services = () => {
-  return (
-    <div className="flex flex-col">
-      <Typography as="h3" className="text-base place-self-start">
-        Services
-      </Typography>
-      <Typography as="p" className="text-muted-foreground pb-6 text-sm">
-        Add the services your salon offers, including name, description,
-        duration, and price.
-      </Typography>
-
-      <SalonServiceForm />
-    </div>
-  );
-};
