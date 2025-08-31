@@ -29,7 +29,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useUserState } from "@/stores/user-store";
+import { signOut } from "next-auth/react";
+import { auth } from "@/auth";
 
 export function AppSidebar({ ...props }) {
   const sidebarItems = [
@@ -49,11 +50,7 @@ export function AppSidebar({ ...props }) {
       icon: Settings2,
     },
   ];
-  const handleSignOut = () => {
-    // Your sign-out logic here
-    console.log("Signing out...");
-  };
-  const email = useUserState((state) => state.email);
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarContent>
@@ -79,7 +76,7 @@ export function AppSidebar({ ...props }) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2 /> {email}
+                  <User2 /> {props.user}
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -93,7 +90,7 @@ export function AppSidebar({ ...props }) {
                 <DropdownMenuItem>
                   <span>Billing</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                   <span>Sign out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>

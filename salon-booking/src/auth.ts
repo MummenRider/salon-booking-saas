@@ -68,10 +68,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return session;
     },
-    async redirect({ baseUrl, url }) {
-      // console.log("this is url", url);
-
-      return `${baseUrl}/dashboard`;
-    },
   },
 });

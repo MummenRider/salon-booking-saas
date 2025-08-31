@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import AppBreadCrumbs from "@/components/app-breadcrumbs";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
@@ -11,10 +12,11 @@ import React, { FC } from "react";
 interface ProtectedLayoutProps {
   children: React.ReactNode;
 }
-const ProtectedLayout: FC<ProtectedLayoutProps> = ({ children }) => {
+const ProtectedLayout: FC<ProtectedLayoutProps> = async ({ children }) => {
+  const session = await auth();
   return (
     <SidebarProvider className="">
-      <AppSidebar />
+      <AppSidebar user={session?.user.name} />
       <SidebarInset className="">
         <header className="flex h-16 shrink-0 items-center gap-2 p-4">
           <div className="flex items-center gap-2 ">
