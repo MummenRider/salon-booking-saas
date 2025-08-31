@@ -9,6 +9,8 @@ const Dashboard = async () => {
 
   const user = await getUserById({ id: session.user.id });
   if (user === null) return null;
+  console.log(session);
+
   return (
     <div>
       <div className="text-3xl font-bold">

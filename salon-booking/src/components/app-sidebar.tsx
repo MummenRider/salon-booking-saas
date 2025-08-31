@@ -1,7 +1,10 @@
+"use client";
 import {
   Calendar,
+  ChevronUp,
   Home,
   Inbox,
+  LogOutIcon,
   Search,
   Settings,
   Settings2,
@@ -20,6 +23,13 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { useUserState } from "@/stores/user-store";
 
 export function AppSidebar({ ...props }) {
   const sidebarItems = [
@@ -39,6 +49,11 @@ export function AppSidebar({ ...props }) {
       icon: Settings2,
     },
   ];
+  const handleSignOut = () => {
+    // Your sign-out logic here
+    console.log("Signing out...");
+  };
+  const email = useUserState((state) => state.email);
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarContent>
@@ -58,6 +73,34 @@ export function AppSidebar({ ...props }) {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton>
+                  <User2 /> {email}
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="top"
+                className="w-[--radix-popper-anchor-width]"
+              >
+                <DropdownMenuItem>
+                  <span>Account</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span>Billing</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
